@@ -202,8 +202,11 @@ defmodule BotchiniWeb.ScreenLive.Guild do
       MapSet.size(pinned) == 1 ->
         "w-full md:max-w-[calc((100dvh_-_16rem)_*_16_/_9)]"
 
+      # Side by side on wide windows, one above the other on tall ones. Each
+      # layout has a widest size that fits the window, and the larger one wins.
+      # When two of those don't fit in a row, they wrap onto their own rows
       MapSet.size(pinned) == 2 ->
-        "w-full md:w-[calc(50%_-_0.5rem)] md:max-w-[calc((100dvh_-_16rem)_*_16_/_9)]"
+        "w-full md:w-[max(min(50%_-_0.5rem,(100dvh_-_16rem)_*_16_/_9),min(100%,(100dvh_-_16rem)_*_8_/_9))]"
 
       MapSet.size(pinned) <= 4 ->
         "w-full md:w-[calc(50%_-_0.5rem)] md:max-w-[calc((100dvh_-_17rem)_*_8_/_9)]"
